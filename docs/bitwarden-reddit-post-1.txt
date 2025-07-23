@@ -1,0 +1,50 @@
+ You need an emergency kit!
+Tips & Tricks
+
+It’s happened again...someone on this subreddit lost their vault this week. The agony is palpable.
+
+“How could this happen”, they wonder. “I have a strong master password. I have good 2FA. I practice good opsec on my devices. I enter my master password every few days so I don’t forget it. But today...I can’t log in!”
+
+People don’t talk about this enough, but there are TWO threats to your vault. The first one, that an attacker gets to read your secrets, is the one everyone talks about. But losing access can be just as bad! One Redditor scoffed at this. He argued that he could go to each website in turn and invoke their recovery workflow. There are a couple of problems with this. First, where do you get the list of websites? The vault has the list...oops, I guess that doesn’t work. Second, the recovery workflow often involves things like the name of your first pet or the name of your first boyfriend; if you answer truthfully, then if there is a website breach an attacker may learn enough to be able to reset your password on other sites. You should be making up unique fibs for those answers and saving those. If they are only in your vault, you’re sunk.
+
+Third, your vault can and should have other items, ones that can’t be regained through a recovery workflow. What about the combination to your gym locker? What about the PIN to your husband’s mobile phone? The contents of your vault is precious and possibly irreplaceable.
+
+“I have my master password memorized!”, you exclaim, “I’ll never forget it!” Sorry, experimental psychologists have known for 50 years that human memory is not reliable. You can recall a fact on a daily basis and then, with no warning, >POOF< it’s gone.
+
+So what happens is, they come on to this subreddit and ask, “How can I get my vault back?” The harsh answer is that—aside from some workarounds like finding a Bitwarden client that is still logged in—there is not much that can be done if it gets to that point. There is no back door, at least for personal vaults. If there was a super special sneaky way for you to get back into your vault without your master password, it would be an attack surface for bad guys to open up your vault as well.
+
+As part of setting up your vault, you need an emergency kit. An emergency kit is not as complete as a full backup of your vault, which is also an important precaution, but it is a bare minimum subset of a backup. It is enough to help you get back into your vault.
+What does an emergency kit need?
+
+    Your master password: your master password is inextricably coupled with the encryption of your vault. The encryption of your vault is your single greatest protection, and without the master password you have nothing.
+
+    Your email address: it sounds trivial, but on the day that someone else has to settle your last affairs, access to your vault is critical, and the email address is the second major part of gaining access to your vault.
+
+    Your 2FA recovery code: your vault absolutely should have 2FA enabled. On a free account, that’s going to mean TOTP (the “authenticator app”). On a premium account you have better options such as a FIDO2/WebAuthn hardware security token. But in either event, if you lose your phone or your Yubikey breaks, the Bitwarden recovery code will allow you to still log into your vault.
+
+How to store your emergency kit?
+
+In its simplest form, you should put all these things on a piece of paper and store it where you keep your important documents such as your birth certificate, vehicle title, and marriage certificate. Some people keep these things in a fireproof box in their house. Others have a safe deposit box.
+
+If you are extra cautious, you might consider storing a second emergency kit in a different location, in case of fire. Perhaps you have a trusted relative, or the alternate executor of y’all’s estate might hold a copy.
+
+I know, it feels counter-intuitive to “just leave” your vault wide open. “If someone gets the emergency kit, they get everything!” The point is, there is no choice. You must have a written record. Your challenge will be to find a way to save it that is secure enough for your risk model.
+
+“Hey! I’ll store the emergency kit in the cloud. That way no one can break into my house!” Um, no. That doesn’t work. You need the username, password, and 2FA for the cloud service. If you store something in the cloud, you also need an encryption key; don’t you dare store something like this in the cloud without also encrypting it. And none of this can be stored in the cloud; it’s circular. So you end up back where you started, where you need physical storage.
+
+There are more complex ways to protect your emergency kit, but if you are going to go to that length, you should be thinking about a full backup (discussed a bit later).
+What does an emergency kit not do for you?
+
+An emergency kit does not have a copy of your vault. Suppose you make a change to your vault and then realize a couple of days later that it was a bad change. Bitwarden tries to protect you by keeping deleted entries in a wastebasket and keeping old passwords in a history. But that won’t protect you from every kind of bad change you might make. A backup copy of the vault will do that for you.
+
+An emergency kit does not have the recovery codes for all your other websites. Google, Etsy, your VPN provider, and even your phone company (the equipment lock code) all have recovery codes. And as I mentioned earlier, those made-up answers to the recovery questions need to be stored somewhere.
+
+If you use an “authenticator app” (a TOTP token generator), an emergency kit does not have all those TOTP keys (the shared secrets that are used to generate your tokens). If your phone dies, you might lose all those secrets. I dislike Authy, but—if you trust it—you could include its encryption key in your emergency kit. Similarly, if you use 2FAS or its equivalent, you could include all the information (cloud login data, encryption key) in your emergency kit; that would allow you to import the app’s datastore into your replacement phone.
+
+At this point we are moving into the realm of a full backup of your credential storage.
+Full Backups
+
+I do encourage vault owners to make full backups. It’s not for beginners, but everyone should eventually move to making a full backup and updating it on a periodic basis, at least once a year. I have a guide to doing this, but you will find other good advice on this subreddit.
+TL;DR
+
+There are two threats to your vault. Beyond someone reading your secrets, you can lose access to your vault. Make an emergency kit! Think about making full backups. Do this all now, before you lose access to your vault. Once you’ve lost the keys to the kingdom, there is no getting it back.

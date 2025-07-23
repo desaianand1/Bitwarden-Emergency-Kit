@@ -1,0 +1,299 @@
+ I created a Bitwarden Emergency Kit
+Ask the Community
+Password Manager
+server:default-cloud
+app:all
+read 6 min
+Jul 2024
+Jan 4
+Shai
+Jul 2024
+
+I recently created a simple document for storing Bitwarden account details. Following some requests for a Bitwarden Emergency Kit (though I know these requests are for an in-app creation feature), I decided to enhance the document’s design using BW’s colors and logo, and share it here.
+
+This first version is a draft, and I would greatly appreciate any feedback to improve it.
+
+Currently, I’m considering replacing the list of all two-step login methods with a larger box that would allow adding any relevant notes in a more free-form manner, keeping only the Authenticator App as a separate field, for which writing down the TOTP secret is probably recommended.
+
+Additionally, if space allows, I am thinking of adding a section for the contact details of an/all Emergency Contacts.
+
+You can find the repository on GitHub here.
+
+For direct download of the current (v0) version of the Emergency Kit, click here.
+
+And here’s a preview screenshot:
+image
+image380×533 21.9 KB
+
+(screenshot redacted by mod)
+
+
+read 6 min
+grb
+Jul 2024
+
+@Shai Thank you for making this contribution.
+
+At a minimum, I would suggest also including a password for encrypted backup files.
+
+It may also be helpful to include a username/password or PIN for the device where Bitwarden is installed (in case one does not have access to a selection of alternative devices that are unlocked).
+
+For people who use 3rd-party authenticators that are password or PIN-protected, having the authenticator password (or hardware key PIN) on the emergency sheet may also be helpful — although technically, it is not needed to regain access to one’s vault, with the Two Step Login Recovery Code already there.
+
+Finally, some people recommend including your email password/2FA on the emergency sheet, so that in case your vault is taken over (and the master password changed), you will at least have a chance of deleting the vault (if the attacker does not also change the account email address). In addition, in such a scenario (vault take-over), if you are able to log in to your email account and change its password before the attackers get to it, that will make if easier to reset passwords on accounts for which the same email account is used for recovery.
+
+Nail1684
+Jul 2024
+
+@Shai Hi!
+
+Some first feedback:
+
+    Great idea - I like it!
+    With the Bitwarden logo… I don’t know if that should be checked with Bitwarden because of copyright etc.?
+    Vault adress = server region (US = .com / EU = .eu) ?
+    Add a field for a Bitwarden-vault-export-password (especially since password-protected exports are a) recommended now and b) possible from most apps)
+    Maybe creating an emergency access could at least be mentioned as an additional possibility?!
+    Maybe mentioning to store the emergency sheet in more than one location could be mentioned.
+    Regular exports (e.g. once a month or every quarter of the year) could be recommended or mentioned - maybe adding that in a calendar app. (people tend to forget these kind of things)
+    Maybe fields for access to the Bitwarden email address (password, 2FA…) (if you only store that in Bitwarden, you might loose access to the email address in case of “emergency”… - with vault exports that risk is reduced, but better be safe than sorry…)
+    And last but not least: it should be mentioned, that that emergency sheet must be up-to-date and for that: it must be changed with every change you may make (change of email address, master password, 2FA methods…) - obvious, but one tends to forget that…
+    Maybe a Bitwarden-login-passkey with encryption (e.g. on a YubiKey or an Android phone) could be an additional method of accessing the vault. (yes, I know, it is still in Beta and only available for the web vault… but “for the future” it might get more wide-spread and only more important than now…)
+
+PS: Additions after reading @grb s post I thought of three additional things:
+
+    Maybe the Bitwarden PIN you (maybe) use for unlock (but not that important, since you can “reset” that by logging out).
+    And for the future - whatever passkey User Verification will bring us :sweat_smile: - if there will be some kind of “passkey user verification”-PIN, that could then be added to an emergency sheet as well.
+    PPS: And also important: double-check for errors when creating the emergency sheet! (nothing is more serious in case of emergency, if you find out that e.g. your master password misses a character or is otherwise wrong somehow…)
+
+
+Shai
+Jul 2024
+
+Thank you both for your feedback; you raise some excellent points. My initial focus was on creating a single-page Emergency Kit because that is what most people are accustomed to. However, adding all this information, even with some rearrangement of the current layout, would likely result in a two-page Emergency Kit.
+
+I wonder how people would feel about that. I’d be happy to create a new version incorporating more information if people don’t mind it being longer than a single page.
+
+Regarding the logo, after reading the Trademark Guidelines, it is my understanding that this use case does not require special permission. If I am mistaken and someone from Bitwarden (I could only find @Max_Bitwarden to tag, so apologies in advance if you are not the right person) sees this, I’ll be happy to remove the logo.
+
+Nail1684
+Jul 2024
+
+    I wonder how people would feel about that. I’d be happy to create a new version incorporating more information if people don’t mind it being longer than a single page.
+
+I personally am a friend of “better complete than short and missing something” - but it’s your decision. And I would like one complete thing so that you don’t have to rethink it every time someone asks about the emergency sheet…
+
+    Regarding the logo
+
+Honestly I have no idea how it is - I just wanted to raise this point before you get into trouble later. Especially if we here (and elsewhere) recommend your sheet then, perhaps…
+
+grb
+Jul 2024
+
+    If I am mistaken
+
+My own reading of the guidelines suggests you may in fact be using the Trademarks improperly, since your emergency sheet design gives the appearance of being an official Bitwarden product/service. It may be safer to brand it as something like “ShaiTec™ Emergency Sheet for Bitwarden®”. I suggest sending a PM to @bw-admin and @sj-bitwarden, or contacting Bitwarden customer support to ensure that your usage is allowed.
+
+grb
+Jul 2024
+
+    I personally am a friend of “better complete than short and missing something” - but it’s your decision.
+
+I would suggest making two versions, one minimalistic version that has only the username, master password, 2FA reset code, and backup file password, and one extended version that has room for additional information — or perhaps a two-sided design that has the minimal information on page 1 (so that page 2 can be left blank, if desired). For non-selfhosted users, there are only two servers to choose from, so omitting the server information from the minimalistic version will not cause too many problems.
+
+Shai
+Jul 2024
+
+Thanks, @grb.
+I’ve contacted support to clear and rectify any potential issues with the use of the logo and brand colors and will take it from there.
+
+@Nail1684
+I agree with you about having complete information.
+
+Having two versions might be a bit difficult to maintain over time, so grb’s suggestion of a hybrid version, with the first page including only the essentials and the rest on page two, makes a lot of sense I think.
+
+go12
+Gary O
+Jul 2024
+
+Hi @Shai! Gary from Bitwarden here.
+Thanks for this! Always helpful to have further advice for users to protect their Bitwarden accounts.
+As this is a document you created, and not Bitwarden, we would recommend what @grb suggested and that you brand this at the top as something similar to
+“ShaiTec™ Emergency Sheet for Bitwarden®” and refrain from using the Bitwarden logo since it is not an official Bitwarden document.
+It is great to have contributions like this and we appreciate your enthusiasm and support for the Bitwarden user community. Thank you!!
+
+Shai
+Jul 2024
+
+Thank you for following up on this, @go12.
+I’ve removed the file from GitHub but I can’t seem to edit the first post in this thread. If you could please edit it for me, removing the screenshot, that would be great.
+
+I’ll post an updated and more generic version in the future.
+
+grb
+Jul 2024
+
+@Shai Per your request, I edited the screenshot in your top post.
+
+Shai
+Jul 2024
+
+Thank you, @grb.
+Appreciated.
+
+Forowebmasters
+David Morales
+go12
+Jul 2024
+
+My respects you have known how to set boundaries, thank without seeming ungrateful and with a lot of respect and kindness, really my respects, I am CEO of my company (not SEO) and that is definitely something to admire, my respects.
+
+5 months later
+dono
+Dec 2024
+
+    I’ll post an updated and more generic version in the future.
+
+Hi @Shai,
+Did you ever post an updated version?
+I would like to use this to prepare an emergency kit.
+
+Best regards.
+
+Shai
+Dec 2024
+
+I haven’t, @dono
+Other things got priority and I have yet to find time rework everything.
+One can make a simple form oneself with all the important information in Word or even a plain text file.
+
+26 days later
+shub
+Jan 3
+
+@dono
+
+I’m gonna hijack Shai’s post to share an emergency kit I put together which is a bit more extensive than this one. It has all the info you need, and also includes instructions, and a list for emergency contacts, and an additional spot for notes one can add themselves.
+
+Here is a link to the PDF - emergency-kits/bitwarden/Bitwarden Emergency Kit.pdf at main · DevShubam/emergency-kits · GitHub
+
+Here is the link to an example filled out copy: emergency-kits/bitwarden/Example of Bitwarden Emergency Kit.pdf at main · DevShubam/emergency-kits · GitHub
+
+If needed, I can provide the link to a Google Doc as well. Should I post my own post on the forum sharing this if it would be useful for others to use as well?
+Screenshot 2025-01-02 at 9.56.05 PM
+Screenshot 2025-01-02 at 9.56.05 PM778×964 53.7 KB
+
+Screenshot 2025-01-02 at 9.56.15 PM
+Screenshot 2025-01-02 at 9.56.15 PM746×998 36.9 KB
+
+
+Nail1684
+Jan 3
+
+@shub Thanks!
+
+“Fill it out electronically and store this document on cloud storage, or an external hard drive, USB key, etc.”
+
+I probably would change that part. On an USB key in my safe at home, I would store it unencrypted - but on an USB keys that I carry around with me or in the cloud??
+
+I would advise not to do that… or it also had to be encrypted - and it would need another kind of “emergency sheet” for that encrypted file then…
+
+PS: And for storing it in the cloud (apart that the file probably should be encrypted and not in plaintext!), you have to also think about the following: if I lost access to Bitwarden and needed my emergency sheet, would I still be able to access the cloud where my emergency sheet would be located then? - avoiding “circular dependencies” is the catchphrase here…
+
+shub
+Jan 3
+
+Hi @Nail1684!
+Thanks for the feedback—it’s a great point about encryption and avoiding circular dependencies.
+
+I had thought about including details like that in the instructions but worried it might make the document too wordy. That’s why I added the Notes section, so users can customize it with specifics like encryption methods or backup plans (like cloud storage account and the password of the encrypted file), so they won’t need another emergency kit for that.
+
+I do only recommend that people print out the document and store it in two places like at home in a safe place like with their passports and other documents, and one at a safe deposit box or at a family members house (just examples) - that’s why I put this suggestion on top.
+
+That said, I could address this more directly in the README of the GitHub repo, the footer of the doc, or by rewriting that part of the instructions. I’ll definitely consider making this clearer—thanks again for the suggestion!
+
+grb
+shub
+Jan 3
+
+@shub I suggest that you read this comment and this response from a Bitwarden rep regarding the use of the word mark “Bitwarden”.
+
+Regarding the contents of your emergency sheet, it should also include the password to your password-protected vault backups.
+
+In addition, it should include the password (and 2FA keys, if applicable) for accessing your email account (for the email used as your Bitwarden username), since you may need it for new device verification.
+
+shub
+Jan 3
+
+@grb I thought you weren’t allowed to use the Bitwarden logo, not the word “Bitwarden.”
+
+Regarding the suggested additions, I could definitely write those down as suggestions for people to write that down in the “Notes” section.
+
+grb
+Jan 3
+
+It may (or may not) be a gray area, but they basically prohibit the use of their trademarks/service marks (which include both the logo and the word mark “Bitwarden”) in a way that could make the artifact appears as if was made by or endorsed by Bitwarden:
+
+“You cannot use our Marks on your website in a way that suggests that your website is an official website or that we endorse your website, unless permitted in a written agreement with us.”
+
+ 
+
+Based on the previous discussion, I think it would be safest to change the title of your emergency sheet to something like “Emergency Kit for Bitwarden®”.
+
+shub
+Jan 3
+
+Thanks, I changed it to that
+
+grb
+Jan 3
+
+    “Fill it out electronically and store this document on cloud storage, or an external hard drive, USB key, etc.”
+
+    I probably would change that part.
+
+@shub I agree with @Nail1684 and will put it more bluntly:
+
+This is dangerous advice, and should be deleted from the document.
+
+If you fill it out electronically, you are exposed to telemetry by your PDF app and your operating system. If you (or the PDF app) save a temporary copy of the document on a hard drive, remnants of the deleted file could be recovered. If you store the document in cloud storage or an external drive, then those locations become an attack surface that expose your vault to risk of compromise.
+
+It is very difficult to create and maintain an electronic Emergency Sheet without exposing yourself to security risks, so you should not suggest this unless you also plan to provide detailed instructions for how to do it securely.
+
+Nail1684
+Jan 3
+
+@shub Especially as you want others to use your sheet, you also have to think about the “novice”, who is not assumed to be clear about all kinds of consequences emerging from using those storage methods we discussed the last posts. So I agree with @grb - either delete it (and @grb was right - I probably put it to mildly in my first response :sweat_smile: ) or insert detailed instructions…
+
+… and not in some README, footer or notes sections, but directly in the document, with a big red warning sign or something like that…:
+
+    That said, I could address this more directly in the README of the GitHub repo, the footer of the doc, or by rewriting that part of the instructions.
+
+
+shub
+Jan 4
+
+@grb @Nail1684
+
+Thanks guys, I will delete it from the document altogether and only suggest printing the document, filling it out, and storing it securely. Could also recommend storing it in two separate places, like at a sibling’s house in a sealed envelope.
+
+    footer or notes sections, but directly in the document, with a big red warning sign or something like that…:
+
+I probably wasn’t too clear but by footer / notes section I meant the big section for notes on the actual document.
+
+grb
+Jan 4
+
+One more suggestion:
+
+You have pre-filled https://vault.bitwarden.com in the first row of the table, as well as in the log in instructions at the bottom. This information will not be applicable to users whose accounts are hosted on bitwarden.eu or on an on-premises server (self-hosted, or hosted by their employer).
+
+shub
+Jan 4
+
+Yeah, I was thinking about that too. Do you think it would be better if I just deleted the pre-filled entry and added a note explaining what users should write there on the example PDF or maybe the Github readme?
+
+grb
+Jan 4
+
+Since you already have an example of a filled-out form, you should probably just delete the pre-filled entry. In the login instructions at the bottom, you can instruct users to navigate to the URL shown in the “Server” field.

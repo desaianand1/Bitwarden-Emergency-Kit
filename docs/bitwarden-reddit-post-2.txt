@@ -1,0 +1,156 @@
+ Making Bitwarden Backups -- One Approach
+Tips & Tricks
+
+EDIT -- 2022-10-20:
+
+Nomenclature, wording, and a reworded introduction
+
+I love Bitwarden, I really do. I use it daily, and I earnestly believe it is one of the best password managers available today.
+
+Like any software offering, Bitwarden has its limitations and drawbacks. IMNSHO creating backups in Bitwarden is...well, difficult. I am going to discuss how I wish it would work, the current state of affairs, and -- most importantly -- an opinionated but detailed guide on how to do backups with the current state of the product.
+Creating Backups -- The Ideal
+
+Inside the Bitwarden app, I wish there was a Create Backup workflow button. This workflow would allow you to select the destination file for the archive, choose an volume password (we'll talk about that later), and give you a series of check boxes, including
+
+    Whether to export file attachments
+
+    Which shared Collections to export
+
+The output of this would be a single archive file, encrypted in a standard industry format such as 7-zip or a aes256 encryption of a .tar.gz file.
+
+It would be created safely, i.e., no temporary files or other unencrypted artifacts on the destination system.
+
+This file can be duplicated and stored at your leisure (we'll discuss that later as well).
+Restoring Backups -- The Ideal
+
+My fantasy is that, inside the Bitwarden app, you would specify an archive created using the earlier backup workflow. After providing the volume password, you would be presented with a menu allowing you a number of options:
+
+    Ability to inspect and/or restore individual vault entries or fields in an entry
+
+    Ability to inspect and/or restore individual file attachments
+
+    Ability to restore vault entries in each vault or collection, with the option to overwrite, skip, or individually decide for each vault entry
+
+    Ability to restore file attachments, with the option to overwrite, skip, or individually decide for each file attachment
+
+The Current Issues With Bitwarden Bacups
+
+Some Items Do Not Export -- The "password history" property of vault entries does not export. There may be other items that don't export either.
+
+File attachments must be manually downloaded, one at a time. They are not included in a vault export.
+
+Shared collections must be manually exported, one at a time, from the web vault.
+
+Encrypted JSON files require the original Bitwarden server -- You cannot read or restore this file without access to the Bitwarden server that created it. You cannot restore to a different server (such as self-hosting).
+You cannot restore to a different user account, even on the same server. Even the newer encryption format, where you specify your own password, seems to also have catches and limitations.
+
+Restoring entries creates duplicates -- There is no way to restore only a portion of your vault. Restoring from a backup does not overwrite any entry, which is a good thing, but this means that -- unless your vault is empty -- you will invariably end up with a huge number of duplicates after the restore is complete.
+Part Two -- Creating Bitwarden Backups Today
+
+Here is a highly opinionated guide to create a good Bitwarden backup. At the end of this you will have a usable Bitwarden archive and a system for creating (refreshing) backups going forward.
+
+You should refresh your backups once a year or immediately after an important change. For instance, if you add 2FA (TOTP or FIDO2) to a service and end up with a new "backup code", you should immediately create a new backup.
+
+This guide will direct you to creating physical air-gapped offline encrypted thumb drives. I scoff at the viability of online (cloud) backups, but if you insist, you can figure out the differences yourself.
+
+Some question the viability of thumb drives. They are right; the data on thumb drives "fades" with time. However, if the thumb drive is stored in a dry climate controlled environment, files easily last five years. You should be updating your vault backups at least once per year, and writing a new file resets the lifetime of the file, so I find thumb drives to be a good candidate for Bitwarden backups.
+Before You Start -- Use Your Vault Differently
+
+The Password History field in a Bitwarden vault entry does not export at all. Now, you should not update passwords unless required, but this does happen: a server breach may require it. Also, a number of decrepit ancient websites such as ADP require it.
+
+If password history is important to you, stop using the builtin feature in Bitwarden. At the very end of the Notes field in your vault entry, keep a list of the old (non-current) passwords you have used for that entry. You have been warned!
+Before You Start -- Get Some Small Thumb Drives
+
+It is almost certainly the case that the total size of your backup is going to be flat out tiny. Thumb drives for your backups are cheap. Amazon will sell you a five-pack of 1Gb thumb drives for under $13. You need at least two, and I recommend another two with a different make and manufacturer (for resilience). Order them now.
+Before You Start -- Install VeraCrypt
+
+We will use VeraCrypt as your archive application. This is a mature FOSS application with builtin encryption.
+
+You will manage your backups from a desktop machine. (Don't try this on iOS or Android.) Download and install VeraCrypt, but don't delete the installer file you downloaded. This will be on each thumb drive you create.
+Create a Place to Store Backups
+
+Inside your Documents folder, create a folder called Bitwarden Backup. Don't worry, anything sensitive in this folder will be encrypted.
+
+Pick a volume password and store it in your Bitwarden vault. This "Volume Password" is used when you create the VeraCrypt container. I recommend using Bitwarden to pick a strong password here. Storing the volume password in your vault will not help you during disaster recovery, but it makes refreshing backups easier and less error-prone.
+
+Move the VeraCrypt installer file into this folder.
+
+Create the VeraCrypt container.
+
+    Under Volumes there is a Create New Volume... action that opens a "VeraCrypt Volume Creation Wizard".
+
+    Choose Create an encrypted file container (the default).
+
+    Create a "Standard VeraCrypt volume" (the default)
+
+    When prompted for "Volume Location" pick your Bitwarden Backup folder and pick a name such as "Backup.hc".
+
+    Leave "Encryption Options" alone, unless you are an expert.
+
+    For "Volume Size", you can choose a very small size. For most people half a Gb is quite sufficient.
+
+    For "Volume Password", enter the volume password. Do not use keyfiles or a PIM.
+
+    Leave "Volume Format" as FAT. You don't need anything more than that, and FAT is quite universally understood by most machines.
+
+Put a README.txt in the Bitwarden Backup folder. This should not have anything sensitive in it. You basically just want to explain this is a backup of your vault, it's a VeraCrypt container, and look: here's an installer for VeraCrypt.
+Creating the First Backup
+
+Open your VeraCrypt container. From the main VeraCrypt menu, pick a drive name, click Select File, find your Backup.hc and select it. Click Mount and enter your volume password. No other options are needed.
+
+If you have attachments, create a ATTACHMENTS.txt in your encrypted volume. Find every file attachment and download it directly to your encrypted volume. Make a note in ATTACHMENTS.txt of which vault entry goes with each attachment. Avoid duplicate filenames.
+
+If you use an external TOTP app such as Aegis Authenticator or Raivo OTP, export that datastore directly to your encrypted volume. If your TOTP app does not allow you to export its datastore, you have a big problem that you will also need to fix.
+
+If you don't keep your master password in your vault, make sure to put it in a text file in your container. The text file is encrypted along with everything else, so this is safe. Human memory is not reliable; you need a record of everything, including the master password.
+
+Find every Collection in every Organization and export it directly to your encrypted volume.
+
+Export your vault as an unencrypted JSON directly to your encrypted volume.
+
+If you help others with their vault, such as your spouse or children, this is the time to export their vaults as well. Hint: it might be less crazymaking to export others' vaults via an anonymous browsing tab logged into the web vault. Consider creating new folders in your encrypted volume for each person, just to keep things organized.
+
+Close your VeraCrypt container: back in VeraCrypt, click Dismount and then exit the app.
+Saving Your Backup
+
+Copy the entire backup folder, which is the README.txt, Backup.hc, and the VeraCrypt installer file, to each thumb drive.
+
+At least one of the thumb drives should be saved offsite. I have one in my house and another one at the house of my son, who is the alternate executor of our estate. You could keep the second thumb drive in a safe deposit box.
+
+Note that if anyone has only the thumb drive or only the volume password, they do not have access to the contents of your backup.
+Saving the Volume Password
+
+You need a copy of the volume password stored somewhere outside your vault. Human memory is not sufficient. Experimental psychologists have known for 50 years that human memory is not reliable. You must have a record, and it needs to be accessible during disaster recovery.
+
+Depending on your risk model, you might have the executor of your estate hold both the volume password in their Bitwarden vault plus two of your thumb drives in their safe.
+
+You might save a copy of the thumb drive and the volume password in a safe deposit box in a bank.
+
+You could distribute the thumb drives to a number of your friends and have other friends hold copies of the volume password. Since no one person has both a thumb drive and the volume password, your backups and your friends are safe from attackers, and no one friend can compromise your backup.
+
+I know one person who formatted the record of the volume password as the solution to a puzzle, and stored the puzzle with the thumb drives. The catch? Only family members knew enough to be able to solve the puzzle. (Yes, he tested them to make sure they could.)
+
+Again, the answer to this part of the puzzle depends on your risk model. Just beware of "circular backups". You mustn't require anything inside the backup in order to open the backup!
+
+This last section, saving the volume password, is also why I am skeptical of cloud backups. In addition to the volume password (hey, please DO NOT store an archive online without first encrypting it), you must also store the username, password, and 2FA (you should definitely be using 2FA for a cloud provider that is storing your archives).
+
+And, like I said earlier, none of this can be in your vault, and none of it can be stored in cloud storage. It still comes back to a physically secure archive of some sort, so the cloud backup seems to be extra steps for no improvement in reliability.
+Using Your Backup
+
+After mounting Backup.hc with VeraCrypt, you can directly inspect entries in your vault. Be somewhat cautious about the apps you use to look at the entries. Without Bitwarden's help, there is a risk that an app may leave temporary files or other data on your device that are not encrypted. But for now, this is the best we can do.
+Sort by:
+[deleted]
+•
+3y ago
+
+Might have been [TL;DR;] and in there already, but a few thoughts...
+
+There is no assurance your crypto software will be available years in the future (example - Apple scrubbing stuff from their online 'store')
+
+    Make sure to include the installers 'for' VeraCrypt for as many desktop os as you might need years in the future along with your README file(s) and encrypted file(s).
+
+Old sysadmin credo "if you haven't tested a restore, you haven't really done a backup" applies:
+
+    before calling your backup complete, 'copy' the encrypted payload and 'test' you can really decrypt the copy. This has bitten me in the past with TrueCrypt.
+
+Likely, only the 'soft chewy center' needs encryption. Add whatever README file(s) and information you think somebody might need to know how to get into the encrypted volume, especially if they need to do so in a time of stress.
