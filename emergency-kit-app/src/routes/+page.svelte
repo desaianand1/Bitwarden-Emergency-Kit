@@ -3,6 +3,9 @@
 	import { Printer, Shield, AlertTriangle, Info, CheckCircle, Download } from 'lucide-svelte';
 
 	let currentDate = '';
+	let printMultipleDevices = false;
+	let printMultipleEmails = false;
+	let printMultipleCopies = false;
 
 	onMount(() => {
 		currentDate = new Date().toLocaleDateString('en-US', {
@@ -17,22 +20,26 @@
 	}
 
 	function savePageOffline() {
-		// Try to trigger the browser's save dialog
-		try {
-			// For most browsers, trigger Ctrl+S equivalent
-			const event = new KeyboardEvent('keydown', {
-				key: 's',
-				ctrlKey: true,
-				metaKey: true,
-				bubbles: true
-			});
-			document.dispatchEvent(event);
-		} catch (error) {
-			// Fallback: show instructions
-			alert(
-				'To save this page offline:\n\n1. Press Ctrl+S (or Cmd+S on Mac)\n2. Choose "Web Page, Complete" or "HTML Only"\n3. Save to a secure location on your computer\n4. Disconnect from internet before opening the saved file'
-			);
-		}
+		// Create a blob with the current page HTML
+		const htmlContent = document.documentElement.outerHTML;
+		const blob = new Blob([htmlContent], { type: 'text/html' });
+		
+		// Create download link
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `bitwarden-emergency-kit-${new Date().toISOString().split('T')[0]}.html`;
+		
+		// Trigger download
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+		
+		// Show success message with instructions
+		alert(
+			'Emergency Kit saved successfully!\n\nSecurity Instructions:\n1. The file has been downloaded to your computer\n2. Disconnect from the internet before opening the saved file\n3. Fill out the form offline for maximum security\n4. Delete the file from your computer after printing'
+		);
 	}
 </script>
 
@@ -115,19 +122,30 @@
 				need to document.
 			</p>
 			<div class="space-y-2 text-sm text-blue-800">
-				<div class="flex items-center gap-2">
-					<div class="h-4 w-4 border-2 border-blue-400"></div>
+				<label class="flex items-center gap-2 cursor-pointer">
+					<input 
+						type="checkbox" 
+						bind:checked={printMultipleDevices}
+						class="h-4 w-4 rounded border-2 border-blue-400 text-blue-600 focus:ring-blue-500"
+					/>
 					<span>Print multiple Device Access pages (check if you have multiple devices)</span>
-				</div>
-				<div class="flex items-center gap-2">
-					<div class="h-4 w-4 border-2 border-blue-400"></div>
-					<span>Print multiple Email Account pages (check if you have multiple email accounts)</span
-					>
-				</div>
-				<div class="flex items-center gap-2">
-					<div class="h-4 w-4 border-2 border-blue-400"></div>
+				</label>
+				<label class="flex items-center gap-2 cursor-pointer">
+					<input 
+						type="checkbox" 
+						bind:checked={printMultipleEmails}
+						class="h-4 w-4 rounded border-2 border-blue-400 text-blue-600 focus:ring-blue-500"
+					/>
+					<span>Print multiple Email Account pages (check if you have multiple email accounts)</span>
+				</label>
+				<label class="flex items-center gap-2 cursor-pointer">
+					<input 
+						type="checkbox" 
+						bind:checked={printMultipleCopies}
+						class="h-4 w-4 rounded border-2 border-blue-400 text-blue-600 focus:ring-blue-500"
+					/>
 					<span>Print multiple copies for different storage locations</span>
-				</div>
+				</label>
 			</div>
 			<p class="mt-3 text-xs text-blue-700">
 				<strong>Instructions:</strong> Fill in page numbers (e.g., "Page 1 of 3") and device/account
@@ -718,18 +736,39 @@
 <style>
 	/* Print-specific styles */
 	@media print {
+		/* Reset all margins and padding */
+		* {
+			-webkit-print-color-adjust: exact !important;
+			color-adjust: exact !important;
+		}
+
+		html, body {
+			margin: 0 !important;
+			padding: 0 !important;
+			height: auto !important;
+		}
+
 		.screen-only {
 			display: none !important;
 		}
 
 		.print-only {
 			display: block !important;
+			margin: 0 !important;
+			padding: 0 !important;
+		}
+
+		/* Ensure the first element starts at the top of the page */
+		.print-only:first-child {
+			margin-top: 0 !important;
+			padding-top: 0 !important;
 		}
 
 		body {
 			font-size: 12pt;
 			line-height: 1.4;
-			color: black;
+			color: black !important;
+			background: white !important;
 		}
 
 		.form-field label {
@@ -746,9 +785,11 @@
 			border: 2px solid #000 !important;
 		}
 
+		/* Prevent page breaks within sections but allow between them */
 		section {
 			page-break-inside: avoid;
 			margin-bottom: 20pt;
+			break-inside: avoid;
 		}
 
 		/* Ensure proper spacing for handwriting */
@@ -757,9 +798,7 @@
 		}
 
 		/* High contrast for printing */
-		h1,
-		h2,
-		h3 {
+		h1, h2, h3 {
 			color: #000 !important;
 		}
 
@@ -771,6 +810,17 @@
 		.text-gray-500,
 		.text-gray-600 {
 			color: #333 !important;
+		}
+
+		/* Ensure main content container has no top margin/padding */
+		.mx-auto.max-w-4xl.space-y-8.p-6 {
+			padding-top: 0 !important;
+			margin-top: 0 !important;
+		}
+
+		/* Fix checkbox styling for print */
+		input[type="checkbox"] {
+			display: none !important;
 		}
 	}
 
