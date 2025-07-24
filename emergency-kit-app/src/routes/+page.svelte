@@ -23,19 +23,19 @@
 		// Create a blob with the current page HTML
 		const htmlContent = document.documentElement.outerHTML;
 		const blob = new Blob([htmlContent], { type: 'text/html' });
-		
+
 		// Create download link
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement('a');
 		a.href = url;
 		a.download = `bitwarden-emergency-kit-${new Date().toISOString().split('T')[0]}.html`;
-		
+
 		// Trigger download
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
 		URL.revokeObjectURL(url);
-		
+
 		// Show success message with instructions
 		alert(
 			'Emergency Kit saved successfully!\n\nSecurity Instructions:\n1. The file has been downloaded to your computer\n2. Disconnect from the internet before opening the saved file\n3. Fill out the form offline for maximum security\n4. Delete the file from your computer after printing'
@@ -122,25 +122,26 @@
 				need to document.
 			</p>
 			<div class="space-y-2 text-sm text-blue-800">
-				<label class="flex items-center gap-2 cursor-pointer">
-					<input 
-						type="checkbox" 
+				<label class="flex cursor-pointer items-center gap-2">
+					<input
+						type="checkbox"
 						bind:checked={printMultipleDevices}
 						class="h-4 w-4 rounded border-2 border-blue-400 text-blue-600 focus:ring-blue-500"
 					/>
 					<span>Print multiple Device Access pages (check if you have multiple devices)</span>
 				</label>
-				<label class="flex items-center gap-2 cursor-pointer">
-					<input 
-						type="checkbox" 
+				<label class="flex cursor-pointer items-center gap-2">
+					<input
+						type="checkbox"
 						bind:checked={printMultipleEmails}
 						class="h-4 w-4 rounded border-2 border-blue-400 text-blue-600 focus:ring-blue-500"
 					/>
-					<span>Print multiple Email Account pages (check if you have multiple email accounts)</span>
+					<span>Print multiple Email Account pages (check if you have multiple email accounts)</span
+					>
 				</label>
-				<label class="flex items-center gap-2 cursor-pointer">
-					<input 
-						type="checkbox" 
+				<label class="flex cursor-pointer items-center gap-2">
+					<input
+						type="checkbox"
 						bind:checked={printMultipleCopies}
 						class="h-4 w-4 rounded border-2 border-blue-400 text-blue-600 focus:ring-blue-500"
 					/>
@@ -165,9 +166,11 @@
 </div>
 
 <!-- Main form content -->
-<div class="mx-auto max-w-4xl space-y-8 p-6">
+<div class="mx-auto max-w-4xl space-y-8 p-6 print:max-w-none print:space-y-6 print:p-0">
 	<!-- Section 1: Bitwarden Account Information -->
-	<section class="rounded-lg border-2 border-gray-300 p-6">
+	<section
+		class="rounded-lg border-2 border-gray-300 p-6 print:mb-6 print:break-inside-avoid print:border-black"
+	>
 		<h2 class="mb-4 flex items-center gap-2 text-xl font-bold text-gray-900">
 			<Shield class="h-5 w-5" />
 			1. Bitwarden Account Information
@@ -237,7 +240,9 @@
 	</section>
 
 	<!-- Section 2: Email Account Backup -->
-	<section class="rounded-lg border-2 border-gray-300 p-6">
+	<section
+		class="rounded-lg border-2 border-gray-300 p-6 print:mb-6 print:break-before-auto print:break-inside-avoid print:border-black"
+	>
 		<h2 class="mb-2 flex items-center gap-2 text-xl font-bold text-gray-900">
 			<Info class="h-5 w-5" />
 			2. Email Account Backup
@@ -338,8 +343,12 @@
 	</section>
 
 	<!-- Section 3: Authenticator App Information -->
-	<section class="rounded-lg border-2 border-gray-300 p-6">
-		<h2 class="mb-4 flex items-center gap-2 text-xl font-bold text-gray-900">
+	<section
+		class="rounded-lg border-2 border-gray-300 p-6 print:mb-6 print:break-before-auto print:break-inside-avoid print:border-black"
+	>
+		<h2
+			class="mb-4 flex items-center gap-2 text-xl font-bold text-gray-900 print:break-after-avoid"
+		>
 			<CheckCircle class="h-5 w-5" />
 			3. Authenticator App Information
 		</h2>
@@ -407,8 +416,12 @@
 	</section>
 
 	<!-- Section 4: Encrypted Exports & Backups -->
-	<section class="rounded-lg border-2 border-gray-300 p-6">
-		<h2 class="mb-4 flex items-center gap-2 text-xl font-bold text-gray-900">
+	<section
+		class="print:break-before-always rounded-lg border-2 border-gray-300 p-6 print:mb-6 print:break-inside-avoid print:border-black"
+	>
+		<h2
+			class="mb-4 flex items-center gap-2 text-xl font-bold text-gray-900 print:break-after-avoid"
+		>
 			<Shield class="h-5 w-5" />
 			4. Encrypted Exports & Backups
 		</h2>
@@ -510,8 +523,12 @@
 	</section>
 
 	<!-- Section 5: Device Access Information -->
-	<section class="rounded-lg border-2 border-gray-300 p-6">
-		<h2 class="mb-2 text-xl font-bold text-gray-900">5. Device Access Information</h2>
+	<section
+		class="print:break-before-always rounded-lg border-2 border-gray-300 p-6 print:mb-6 print:break-inside-avoid print:border-black"
+	>
+		<h2 class="mb-2 text-xl font-bold text-gray-900 print:break-after-avoid">
+			5. Device Access Information
+		</h2>
 		<p class="mb-4 text-sm text-gray-600">
 			Critical device passwords needed to access your devices in an emergency. Include login
 			passwords, PINs, and biometric backup methods for devices where Bitwarden is installed.
@@ -569,8 +586,12 @@
 	</section>
 
 	<!-- Section 6: Emergency Contacts -->
-	<section class="rounded-lg border-2 border-gray-300 p-6">
-		<h2 class="mb-4 text-xl font-bold text-gray-900">6. Emergency Contacts</h2>
+	<section
+		class="rounded-lg border-2 border-gray-300 p-6 print:mb-6 print:break-before-auto print:break-inside-avoid print:border-black"
+	>
+		<h2 class="mb-4 text-xl font-bold text-gray-900 print:break-after-avoid">
+			6. Emergency Contacts
+		</h2>
 
 		<div class="space-y-6">
 			<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -618,8 +639,12 @@
 	</section>
 
 	<!-- Section 7: Storage and Maintenance -->
-	<section class="rounded-lg border-2 border-gray-300 p-6">
-		<h2 class="mb-4 text-xl font-bold text-gray-900">7. Storage and Maintenance</h2>
+	<section
+		class="rounded-lg border-2 border-gray-300 p-6 print:mb-6 print:break-before-auto print:break-inside-avoid print:border-black"
+	>
+		<h2 class="mb-4 text-xl font-bold text-gray-900 print:break-after-avoid">
+			7. Storage and Maintenance
+		</h2>
 
 		<div class="space-y-6">
 			<div class="form-field">
@@ -683,8 +708,12 @@
 	</section>
 
 	<!-- Section 8: Notes -->
-	<section class="rounded-lg border-2 border-gray-300 p-6">
-		<h2 class="mb-4 text-xl font-bold text-gray-900">8. Additional Notes</h2>
+	<section
+		class="rounded-lg border-2 border-gray-300 p-6 print:mb-6 print:break-before-auto print:break-inside-avoid print:border-black"
+	>
+		<h2 class="mb-4 text-xl font-bold text-gray-900 print:break-after-avoid">
+			8. Additional Notes
+		</h2>
 
 		<div class="space-y-4">
 			<div class="form-field">
@@ -742,7 +771,8 @@
 			color-adjust: exact !important;
 		}
 
-		html, body {
+		html,
+		body {
 			margin: 0 !important;
 			padding: 0 !important;
 			height: auto !important;
@@ -798,7 +828,9 @@
 		}
 
 		/* High contrast for printing */
-		h1, h2, h3 {
+		h1,
+		h2,
+		h3 {
 			color: #000 !important;
 		}
 
@@ -819,7 +851,7 @@
 		}
 
 		/* Fix checkbox styling for print */
-		input[type="checkbox"] {
+		input[type='checkbox'] {
 			display: none !important;
 		}
 	}
