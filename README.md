@@ -6,7 +6,7 @@ A comprehensive security backup and recovery system for Bitwarden password manag
 
 ## Emergency Kit Web App
 
-**🔗 [Use the Emergency Kit App](https://your-hosted-site.com)**
+**🔗 [Use the Emergency Kit App](https://emkit.ananddesai.dev)**
 
 The Emergency Kit App generates a printable form that you fill out by hand and store securely. This physical backup ensures you can regain access to your Bitwarden vault even if you forget your master password, lose your phone, or face other emergency scenarios.
 
