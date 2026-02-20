@@ -498,6 +498,53 @@ Instead of `MyDog123!`, use `correct-horse-battery-staple` style passphrases.
 - Test vault export and import process
 - Review and update all emergency procedures
 
+### Alternative: Secret Sharing for Multiple Trusted People
+
+**What is Secret Sharing?**
+
+Secret Sharing is an advanced security technique that splits your emergency information into multiple pieces (called "shares") where no single person can access your secrets alone. Think of it like a safe that requires multiple keys held by different people to open.
+
+**How It Works**:
+- Your credentials are mathematically split into multiple pieces (e.g., 5 shares)
+- You decide how many pieces are needed to recover (e.g., any 3 of 5)
+- Each trusted person gets one share
+- No single person can see your passwords—they must work together
+- Even if one person loses their share, you can still recover
+
+**When to Use Secret Sharing Instead of Emergency Sheets**:
+
+✅ **Good for**:
+- Family situations where you want shared responsibility
+- When no single person should have full access
+- High-security scenarios requiring multiple approvals
+- Distributing trust among several people
+- Protecting against single person being compromised
+
+❌ **Not ideal for**:
+- Solo users who need quick personal access
+- Situations where coordinating multiple people is difficult
+- When you need immediate emergency access
+- First-time users still learning password security
+
+**Getting Started with Secret Sharing**:
+1. Use the [Secret Sharing feature](../emergency-kit-app/secret-sharing) in our web app
+2. Enter your Bitwarden credentials and other emergency information
+3. Choose how many shares to create (3-10 people recommended)
+4. Choose the minimum needed to recover (usually 50-60% of total)
+5. Print each share and distribute to trusted individuals
+6. Keep instructions on how to use the Recovery page
+
+**Example Scenarios**:
+- **Family of 5**: Create 5 shares, any 3 can recover. This way, even if 2 family members are unavailable, the others can still help.
+- **Trusted Circle**: 3 shares to your spouse, adult child, and best friend. Any 2 of them working together can recover your credentials.
+- **Maximum Security**: Create 5 shares, require all 5. Everyone must agree before secrets are revealed.
+
+**Important Reminders**:
+- Store each share like you would an emergency sheet (secure, fireproof location)
+- Each person should only have their own share—never collect them all
+- Test the recovery process annually with your trusted group
+- Keep a separate traditional emergency sheet as a backup method
+
 ### Planning for the Unexpected
 
 **Device Loss or Theft**:
@@ -595,6 +642,8 @@ Your future self will thank you for taking these steps today. Welcome to the wor
 
 - [Comprehensive Backup Guide](./comprehensive-backup-guide.md) - Advanced backup strategies
 - [Emergency Kit Web App](../emergency-kit-app/) - Generate your printable emergency kit
+- [Secret Sharing Tool](../emergency-kit-app/secret-sharing) - Split credentials among trusted people
+- [Recovery Tool](../emergency-kit-app/recover) - Combine shares to recover secrets
 - [Bitwarden Help Center](https://bitwarden.com/help/) - Official documentation
 - [Ente Auth Help](https://ente.io/auth/help/) - Authenticator app documentation
 - [Have I Been Pwned](https://haveibeenpwned.com) - Check for data breaches
