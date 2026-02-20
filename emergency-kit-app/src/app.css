@@ -1,1 +1,142 @@
 @import 'tailwindcss';
+
+@theme {
+	/* Primary Blue - Full Scale */
+	--color-primary-50: #eff6ff;
+	--color-primary-100: #dbeafe;
+	--color-primary-200: #bfdbfe;
+	--color-primary-300: #93c5fd;
+	--color-primary-400: #60a5fa;
+	--color-primary-500: #3b82f6;
+	--color-primary-600: #175dfc;
+	--color-primary-700: #1d4ed8;
+	--color-primary-800: #1e40af;
+	--color-primary-900: #1e3a8a;
+	--color-primary-950: #172554;
+
+	/* Secondary Purple - Full Scale */
+	--color-secondary-50: #faf5ff;
+	--color-secondary-100: #f3e8ff;
+	--color-secondary-200: #e9d5ff;
+	--color-secondary-300: #d8b4fe;
+	--color-secondary-400: #c084fc;
+	--color-secondary-500: #a855f7;
+	--color-secondary-600: #a855f7;
+	--color-secondary-700: #9333ea;
+	--color-secondary-800: #7e22ce;
+	--color-secondary-900: #6b21a8;
+	--color-secondary-950: #4a044e;
+
+	/* Semantic Colors - Use Tailwind's default amber, green, red scales */
+}
+
+/* Print styles - SINGLE SOURCE OF TRUTH */
+@media print {
+	/* Page setup */
+	@page {
+		size: A4 portrait;
+		margin: 0.5in;
+	}
+
+	/* Color adjustment - single declaration, modern syntax */
+	* {
+		print-color-adjust: exact;
+	}
+
+	/* Utility classes */
+	.screen-only {
+		display: none !important;
+	}
+
+	.print-only {
+		display: block !important;
+	}
+
+	/* Page breaks - MODERN SYNTAX ONLY */
+	.share-page {
+		break-after: page;
+		break-inside: avoid;
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.share-page:last-child {
+		break-after: auto;
+	}
+
+	section {
+		break-inside: avoid;
+		margin-bottom: 20pt;
+	}
+
+	/* Borders for print - lighter where possible */
+	.border,
+	.border-2,
+	.border-b-2 {
+		border-color: #000;
+		border-width: 1px;
+	}
+
+	/* High contrast text */
+	h1,
+	h2,
+	h3,
+	h4 {
+		color: #000;
+	}
+
+	.text-gray-900,
+	.text-gray-800,
+	.text-gray-700 {
+		color: #000;
+	}
+
+	.text-gray-600 {
+		color: #333;
+	}
+
+	/* Preserve colored backgrounds */
+	.bg-red-50 {
+		background-color: #fee;
+	}
+
+	.bg-primary-50 {
+		background-color: #eff6ff;
+	}
+
+	.bg-gray-50 {
+		background-color: #f9fafb;
+	}
+
+	/* Preserve colored text */
+	.text-red-900 {
+		color: #7f1d1d;
+	}
+
+	.text-red-800 {
+		color: #991b1b;
+	}
+
+	.text-primary-900 {
+		color: #1e3a8a;
+	}
+
+	.text-primary-800 {
+		color: #1e40af;
+	}
+
+	/* Preserve colored borders */
+	.border-red-600 {
+		border-color: #dc2626;
+	}
+
+	.border-primary-600 {
+		border-color: #175dfc;
+	}
+
+	/* Force page break before each kit copy except first */
+	.kit-copy {
+		break-before: page;
+	}
+}

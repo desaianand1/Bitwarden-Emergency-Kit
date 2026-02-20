@@ -6,6 +6,7 @@
 2. [Tier 1: Essential Emergency Kit](#tier-1-essential-emergency-kit)
 3. [Tier 2: Basic Digital Backups](#tier-2-basic-digital-backups)
 4. [Tier 3: Advanced Encrypted Backups](#tier-3-advanced-encrypted-backups)
+   - [Shamir's Secret Sharing for Distributed Security](#shamirs-secret-sharing-for-distributed-security)
 5. [Tier 4: Disaster Recovery Planning](#tier-4-disaster-recovery-planning)
 6. [Testing and Maintenance](#testing-and-maintenance)
 7. [Troubleshooting Common Issues](#troubleshooting-common-issues)
@@ -333,7 +334,171 @@ Never store all copies in one location. Use at least three different locations:
 - **Never store the encryption key with the encrypted backup**
 - Store encryption key in your emergency sheet
 - Consider puzzle-format for family members
-- Use Shamir's Secret Sharing for ultimate security (advanced)
+- Use Shamir's Secret Sharing for ultimate security (see below)
+
+### Shamir's Secret Sharing for Distributed Security
+
+**What is Shamir's Secret Sharing?**
+
+Shamir's Secret Sharing is a cryptographic technique that splits your secrets into multiple "shares" where a minimum number of shares must be combined to recover the original information. No single share reveals anything about your secrets.
+
+**How It Works (Simplified)**:
+Imagine your password is a point on a graph. The system creates a curve that passes through this point, then generates shares as other points on this curve. You need enough points (shares) to recreate the curve and find your original password point.
+
+**Real-World Example**:
+- Split your emergency kit information into 5 shares
+- Set threshold to 3 (any 3 shares can recover everything)
+- Give one share each to: spouse, adult child, sibling, best friend, trusted colleague
+- Benefits:
+  - No single person can access your secrets alone
+  - If 2 people lose their shares, you can still recover with the other 3
+  - Prevents single point of failure
+  - Distributes trust and responsibility
+
+**When to Use Secret Sharing**:
+
+✅ **Ideal Scenarios**:
+- Family situations requiring shared responsibility
+- High-security situations where no one person should have complete access
+- Protection against coercion (no single person can be forced to reveal everything)
+- Geographic distribution of trusted contacts
+- Business continuity planning with multiple stakeholders
+
+❌ **Less Suitable For**:
+- Solo individuals without trusted contacts
+- Situations requiring immediate solo access
+- When coordinating multiple people is impractical
+- First-time users (start with Tier 1 and 2 first)
+
+**Using the Secret Sharing Tool**:
+
+**Step 1: Prepare Your Information**
+- Gather all information from your Tier 1 emergency kit
+- Bitwarden master password and email
+- Email account credentials
+- Authenticator app recovery information
+- Any other critical credentials
+
+**Step 2: Generate Shares**
+1. Visit the [Secret Sharing page](../emergency-kit-app/secret-sharing)
+2. **Security Note**: Disconnect from the internet before entering secrets
+3. Select which credentials to include
+4. Configure sharing parameters:
+   - Total shares: 3-10 (based on number of trusted people)
+   - Threshold: Usually 50-70% of total shares
+   - Example: 5 total shares, require any 3 to recover
+5. Enter your credentials
+6. Generate shares
+
+**Step 3: Distribute Shares Securely**
+- Print each share immediately
+- **Never save shares digitally**
+- Each person gets exactly ONE share
+- Include basic instructions with each share
+- Explain the threshold concept
+- Provide contact information for other share holders
+
+**Step 4: Document the System**
+Create a simple instruction sheet for share holders:
+```
+EMERGENCY ACCESS SHARE
+Share X of Y | Requires Z shares to recover
+
+This is one piece of [Your Name]'s emergency access system.
+By itself, this share reveals NOTHING and is completely useless.
+
+TO RECOVER IN AN EMERGENCY:
+1. Contact other share holders (list below)
+2. Gather at least Z shares total
+3. Visit: [recovery page URL]
+4. Enter all shares together
+5. Follow recovery instructions
+
+OTHER SHARE HOLDERS:
+- Name, Phone, Email
+- Name, Phone, Email
+[etc.]
+
+IMPORTANT: Only combine shares in genuine emergencies with
+all share holders present or consenting.
+```
+
+**Step 5: Test the Recovery Process**
+- Schedule an annual "drill" with all share holders
+- Practice combining shares using the [Recovery Tool](../emergency-kit-app/recover)
+- Verify everyone understands the process
+- Update shares if any information changes
+
+**Choosing the Right Configuration**:
+
+**Conservative (High Security)**:
+- 5 shares, require 4 to recover
+- Good for sensitive situations
+- Reduces risk of unauthorized recovery
+- Higher risk of lockout if people are unavailable
+
+**Balanced (Recommended)**:
+- 5 shares, require 3 to recover
+- Good balance of security and accessibility
+- 2 people can be unavailable and you're still okay
+- Most common configuration
+
+**Accessible (Family Friendly)**:
+- 3 shares, require 2 to recover
+- Easier to coordinate
+- Lower security (only need to compromise 2 people)
+- Good for close family units
+
+**Maximum Security**:
+- 7-10 shares, require all shares
+- Unanimous decision required
+- Excellent for high-stakes situations
+- Very high lockout risk if anyone loses their share
+
+**Combining with Traditional Backups**:
+
+Don't rely solely on Secret Sharing. Use a layered approach:
+
+**Layer 1**: Traditional emergency sheet (solo access)
+- For personal emergencies when you need immediate access
+- Store securely at home
+
+**Layer 2**: Secret Sharing distribution (family access)
+- For situations where family needs to help
+- Distributed among trusted people
+
+**Layer 3**: Encrypted VeraCrypt backup (data preservation)
+- For complete data loss scenarios
+- Stored in safe deposit box
+
+This multi-layer approach ensures you're protected against:
+- Personal memory loss (Layer 1)
+- Incapacitation or death (Layer 2)
+- Complete Bitwarden service failure (Layer 3)
+
+**Security Considerations**:
+
+**Advantages**:
+- No single point of failure or compromise
+- Mathematically secure (shares reveal no information)
+- Flexible threshold configurations
+- Works offline (no internet required)
+- Transparent algorithm (open source implementation)
+
+**Limitations**:
+- Requires coordinating multiple people
+- More complex than traditional emergency sheet
+- Must update all shares when information changes
+- Social engineering risk if share holders collude
+
+**Best Practices**:
+- Choose share holders in different geographic locations
+- Use people with different access to your life (family, work, friends)
+- Store shares like you would emergency sheets (fireproof, secure)
+- Include the Recovery Tool URL in your estate planning documents
+- Test the recovery process at least annually
+- Never store multiple shares in one location
+- Consider time-lock mechanisms for sensitive situations
 
 ### Creating and Maintaining Advanced Backups
 
@@ -560,6 +725,48 @@ A Single Point of Failure is any component that, if it fails, brings down your e
 - Regular family meetings about security procedures
 - Multiple family members should know locations
 
+### Secret Sharing Issues
+
+**Problem**: Can't gather enough shares to meet threshold
+**Solution**:
+- Always have traditional emergency sheet as backup
+- Choose threshold carefully (usually 50-60% of total)
+- Maintain contact information for all share holders
+- Review share holder availability annually
+- Consider geographic distribution
+
+**Problem**: Share holders lost their shares
+**Solution**:
+- Treat shares like emergency sheets (fireproof storage)
+- Provide clear storage instructions with each share
+- Regular check-ins to verify shares are safe
+- Keep traditional backup as fallback
+- Regenerate all shares if too many are lost
+
+**Problem**: Information changed but shares weren't updated
+**Solution**:
+- Set calendar reminders to review shares quarterly
+- Regenerate shares whenever critical information changes
+- Collect old shares before distributing new ones
+- Document current share version number
+- Maintain changelog of share updates
+
+**Problem**: Recovery tool not working or unavailable
+**Solution**:
+- Keep offline copy of recovery tool (save webpage)
+- Include recovery tool URL in estate documents
+- Test recovery process annually
+- Document manual recovery mathematics if needed
+- Always maintain traditional emergency sheet backup
+
+**Problem**: Share holders don't trust each other
+**Solution**:
+- Choose share holders carefully before distribution
+- Use neutral third party for coordination
+- Consider higher threshold for added security
+- Regular communication builds trust
+- Establish clear emergency protocols in advance
+
 ---
 
 ## Conclusion
@@ -580,6 +787,8 @@ Your future self—and your family—will thank you for taking these precautions
 ## Additional Resources
 
 - [Emergency Kit Web App](../emergency-kit-app/) - Generate your printable emergency kit
+- [Secret Sharing Tool](../emergency-kit-app/secret-sharing) - Split credentials using Shamir's Secret Sharing
+- [Recovery Tool](../emergency-kit-app/recover) - Combine shares to recover your secrets
 - [Beginner's Security Guide](./beginner-security-guide.md) - Complete introduction for newcomers
 - [VeraCrypt Documentation](https://veracrypt.fr/en/Documentation.html) - Official VeraCrypt guides
 - [Bitwarden Help Center](https://bitwarden.com/help/) - Official Bitwarden documentation
